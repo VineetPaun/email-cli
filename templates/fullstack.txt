@@ -1,0 +1,16 @@
+Hi {{ name }},
+
+I am reaching out because I am interested in full-stack opportunities at {{ company }}.
+
+I ship end-to-end features across frontend and backend: product UI, APIs, data flows, and deployment workflows.
+
+If useful, I can share projects where I owned full feature delivery from idea to production.
+
+{% if portfolio %}Portfolio: {{ portfolio }}
+{% endif %}{% if github %}GitHub: {{ github }}
+{% endif %}{% if linkedin %}LinkedIn: {{ linkedin }}
+{% endif %}{% if resume %}Resume: {{ resume }}
+{% endif %}
+Thanks for your time.
+
+{{ sender_name | default('[Your name]') }}

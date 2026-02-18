@@ -1,0 +1,15 @@
+Hi {{ name }},
+
+I am reaching out because I am interested in backend opportunities at {{ company }}.
+
+I work on APIs, distributed systems, data modeling, and production reliability with a focus on maintainability and scale.
+
+If useful, I can share examples of backend systems I built and how I handle performance, observability, and safe deployments.
+
+{% if github %}GitHub: {{ github }}
+{% endif %}{% if linkedin %}LinkedIn: {{ linkedin }}
+{% endif %}{% if resume %}Resume: {{ resume }}
+{% endif %}
+Thanks for your time.
+
+{{ sender_name | default('[Your name]') }}
