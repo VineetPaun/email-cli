@@ -26,7 +26,11 @@ export function loadLinks(workDir?: string): Links {
   if (workDir) {
     dirs.push(path.resolve(workDir));
   }
-  dirs.push(process.cwd());
+  try {
+    dirs.push(process.cwd());
+  } catch {
+    // Ignore invalid cwd and continue.
+  }
 
   for (const dir of dirs) {
     const filePath = path.join(dir, "links.json");

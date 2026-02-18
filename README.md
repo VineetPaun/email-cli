@@ -11,6 +11,8 @@ Single-project email CLI. Everything lives inside this folder.
   - `templates/backend.txt`
   - `templates/fullstack.txt`
 - Subject is fixed for the whole run via `EMAIL_SUBJECT`.
+- `sent_log.csv` is written for delivery tracking.
+- Resume-on-failure is enabled by default (already sent rows in the same campaign are skipped).
 
 ## Setup (once)
 
@@ -35,6 +37,8 @@ In `.env`, set:
 - `SMTP_PORT`
 - `EMAIL_SUBJECT` (single subject for all emails)
 - `POSTCLI_ROLE=fe|be|fullstack`
+- `RESUME_ON_FAILURE=true|false`
+- `SEND_LOG_FILE=sent_log.csv` (optional)
 
 ## Send emails
 
@@ -51,6 +55,7 @@ bun run validate
 bun run dry
 bun run src/cli.ts send-default --role fe --dry-run
 bun run src/cli.ts import data.json -o contacts.csv
+bun run src/cli.ts send-default --no-resume
 ```
 
 ## Optional cleanup
