@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Outreach</title>
+</head>
+<body>
+  <strong>{{ role_template.badge }}</strong><br />
+  Hi {{ name }},<br /><br />
+  I am interested in {{ role_template.badge | lower }} opportunities at <strong>{{ company }}</strong>. {{ role_template.intro }}<br />
+
+  <strong>How I can contribute</strong>
+  <ul>
+    {% for layer in role_template.stack %}
+    <li><strong>{{ layer.title }}:</strong> {{ layer.description }}</li>
+    {% endfor %}
+  </ul>
+
+  <strong>Highlights</strong>
+  <ul>
+    {% for highlight in role_template.highlights %}
+    <li><strong>{{ highlight.label }}:</strong> {{ highlight.value }}</li>
+    {% endfor %}
+  </ul>
+
+  <!-- {{ role_template.followup }}<br /><br />
+
+  {% if role_template.ctaHref %}
+  <a href="{{ role_template.ctaHref }}" target="_blank">{{ role_template.ctaLabel }}</a><br /><br />
+  {% endif %} -->
+
+  {% if github or linkedin or portfolio or resume or x %}
+  <strong>Links</strong><br />
+  {% if github %}
+  <strong>GitHub:</strong> <a href="{{ github }}">{{ github }}</a><br />
+  {% endif %}
+  {% if linkedin %}
+  <strong>LinkedIn:</strong> <a href="{{ linkedin }}">{{ linkedin }}</a><br />
+  {% endif %}
+  {% if portfolio %}
+  <strong>Portfolio:</strong> <a href="{{ portfolio }}">{{ portfolio }}</a><br />
+  {% endif %}
+  {% if resume %}
+  <strong>Resume:</strong> <a href="{{ resume }}">Vineet_Paun_Resume.pdf</a><br />
+  {% endif %}
+  {% if x %}
+  <strong>X:</strong> <a href="{{ x }}">{{ x }}</a><br />
+  {% endif %}
+  <br />
+  {% endif %}
+
+  Thanks for your time,<br />
+  <strong>{{ sender_name or "Your Name" }}</strong>
+</body>
+</html>

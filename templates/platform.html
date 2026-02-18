@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Platform Outreach</title>
+  <!--[if mso]>
+  <style>
+    table { border-collapse: collapse; }
+    .fallback-font { font-family: Georgia, serif !important; }
+  </style>
+  <![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#f0eef5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1a1830;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;">
+  <!-- Outer wrapper -->
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f0eef5;padding:36px 16px;">
+    <tr>
+      <td align="center">
+        <!-- Card -->
+        <table role="presentation" width="620" cellspacing="0" cellpadding="0" border="0" style="max-width:620px;width:100%;background-color:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e5e3ec;">
+          <!-- Header -->
+          <tr>
+            <td style="padding:32px 36px 26px 36px;position:relative;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td style="background-color:#eef2ff;color:#6366f1;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:5px 14px;border-radius:100px;line-height:1.4;">
+                    &#9632;&nbsp; {{ role_template.badge }}
+                  </td>
+                </tr>
+              </table>
+              <h1 style="margin:16px 0 0 0;font-size:30px;font-weight:700;color:#1a1830;letter-spacing:-0.02em;line-height:1.2;font-family:Georgia,'Times New Roman',serif;">Hi {{ name }},</h1>
+              <div style="width:40px;height:3px;background-color:#c7d2fe;border-radius:2px;margin-top:16px;"></div>
+            </td>
+          </tr>
+
+          <!-- Intro -->
+          <tr>
+            <td style="padding:8px 36px 24px 36px;font-size:15px;line-height:1.8;color:#5c5775;">
+              I am reaching out because I am interested in {{ role_template.badge | lower }} opportunities at <strong style="color:#1a1830;font-weight:600;">{{ company }}</strong>.
+              {{ role_template.intro }}
+            </td>
+          </tr>
+
+          <!-- Stack layers -->
+          <tr>
+            <td style="padding:0 36px 24px 36px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border:1px solid #e5e3ec;border-radius:10px;overflow:hidden;">
+                <tr>
+                  <td style="padding:0;border-bottom:1px solid #e5e3ec;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td width="4" style="width:4px;background-color:#6366f1;"></td>
+                        <td style="padding:16px 18px;">
+                          <div style="font-size:14px;font-weight:600;color:#1a1830;margin-bottom:3px;">{{ role_template.stack[0].title }}</div>
+                          <div style="font-size:13px;color:#5c5775;line-height:1.6;">{{ role_template.stack[0].description }}</div>
+                        </td>
+                        <td width="80" align="center" valign="middle" style="padding:12px 14px 12px 0;">
+                          <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:4px 12px;border-radius:100px;color:#6366f1;background-color:#eef2ff;">{{ role_template.stack[0].tag }}</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0;border-bottom:1px solid #e5e3ec;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td width="4" style="width:4px;background-color:#f59e0b;"></td>
+                        <td style="padding:16px 18px;">
+                          <div style="font-size:14px;font-weight:600;color:#1a1830;margin-bottom:3px;">{{ role_template.stack[1].title }}</div>
+                          <div style="font-size:13px;color:#5c5775;line-height:1.6;">{{ role_template.stack[1].description }}</div>
+                        </td>
+                        <td width="80" align="center" valign="middle" style="padding:12px 14px 12px 0;">
+                          <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:4px 12px;border-radius:100px;color:#92400e;background-color:#fef3c7;">{{ role_template.stack[1].tag }}</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td width="4" style="width:4px;background-color:#e11d48;"></td>
+                        <td style="padding:16px 18px;">
+                          <div style="font-size:14px;font-weight:600;color:#1a1830;margin-bottom:3px;">{{ role_template.stack[2].title }}</div>
+                          <div style="font-size:13px;color:#5c5775;line-height:1.6;">{{ role_template.stack[2].description }}</div>
+                        </td>
+                        <td width="80" align="center" valign="middle" style="padding:12px 14px 12px 0;">
+                          <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:4px 12px;border-radius:100px;color:#9f1239;background-color:#ffe4e6;">{{ role_template.stack[2].tag }}</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Highlights -->
+          <tr>
+            <td style="padding:0 36px 24px 36px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td width="33%" align="center" valign="top" style="padding:0 6px 0 0;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f5f4f8;border:1px solid #e5e3ec;border-radius:10px;overflow:hidden;">
+                      <tr>
+                        <td align="center" style="padding:18px 12px 14px 12px;">
+                          <div style="font-size:26px;font-weight:700;letter-spacing:-0.03em;color:#6366f1;font-family:Georgia,'Times New Roman',serif;line-height:1.2;">{{ role_template.highlights[0].value }}</div>
+                          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#5c5775;margin-top:4px;">{{ role_template.highlights[0].label }}</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="height:3px;background:linear-gradient(90deg,#6366f1,#c7d2fe);font-size:0;line-height:0;">&nbsp;</td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td width="33%" align="center" valign="top" style="padding:0 6px;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f5f4f8;border:1px solid #e5e3ec;border-radius:10px;overflow:hidden;">
+                      <tr>
+                        <td align="center" style="padding:18px 12px 14px 12px;">
+                          <div style="font-size:26px;font-weight:700;letter-spacing:-0.03em;color:#d97706;font-family:Georgia,'Times New Roman',serif;line-height:1.2;">{{ role_template.highlights[1].value }}</div>
+                          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#5c5775;margin-top:4px;">{{ role_template.highlights[1].label }}</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="height:3px;background:linear-gradient(90deg,#f59e0b,#fbbf24);font-size:0;line-height:0;">&nbsp;</td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td width="33%" align="center" valign="top" style="padding:0 0 0 6px;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#f5f4f8;border:1px solid #e5e3ec;border-radius:10px;overflow:hidden;">
+                      <tr>
+                        <td align="center" style="padding:18px 12px 14px 12px;">
+                          <div style="font-size:26px;font-weight:700;letter-spacing:-0.03em;color:#e11d48;font-family:Georgia,'Times New Roman',serif;line-height:1.2;">{{ role_template.highlights[2].value }}</div>
+                          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#5c5775;margin-top:4px;">{{ role_template.highlights[2].label }}</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="height:3px;background:linear-gradient(90deg,#e11d48,#fb7185);font-size:0;line-height:0;">&nbsp;</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Followup -->
+          <tr>
+            <td style="padding:0 36px 24px 36px;font-size:14px;line-height:1.8;color:#5c5775;">
+              {{ role_template.followup }}
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          {% if role_template.ctaHref %}
+          <tr>
+            <td style="padding:0 36px 28px 36px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td style="background-color:#6366f1;border-radius:8px;">
+                    <a href="{{ role_template.ctaHref }}" target="_blank" style="display:inline-block;padding:12px 26px;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.01em;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+                      &#9741;&nbsp;&nbsp;{{ role_template.ctaLabel }}
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          {% endif %}
+
+          <!-- Divider -->
+          <tr>
+            <td style="padding:0 36px;">
+              <div style="border-top:1px solid #e5e3ec;"></div>
+            </td>
+          </tr>
+
+          <!-- Links -->
+          {% if github or linkedin or resume or portfolio or x %}
+          <tr>
+            <td style="padding:22px 36px 18px 36px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                {% if github %}
+                <tr>
+                  <td valign="top" style="padding:0 0 10px 0;">
+                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#a8a3b8;margin-bottom:4px;">GitHub</div>
+                    <a href="{{ github }}" style="color:#6366f1;font-size:12px;text-decoration:none;border-bottom:1px dashed rgba(99,102,241,0.3);">{{ github }}</a>
+                  </td>
+                </tr>
+                {% endif %}
+                {% if linkedin %}
+                <tr>
+                  <td valign="top" style="padding:0 0 10px 0;">
+                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#a8a3b8;margin-bottom:4px;">LinkedIn</div>
+                    <a href="{{ linkedin }}" style="color:#6366f1;font-size:12px;text-decoration:none;border-bottom:1px dashed rgba(99,102,241,0.3);">{{ linkedin }}</a>
+                  </td>
+                </tr>
+                {% endif %}
+                {% if portfolio %}
+                <tr>
+                  <td valign="top" style="padding:0 0 10px 0;">
+                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#a8a3b8;margin-bottom:4px;">Portfolio</div>
+                    <a href="{{ portfolio }}" style="color:#6366f1;font-size:12px;text-decoration:none;border-bottom:1px dashed rgba(99,102,241,0.3);">{{ portfolio }}</a>
+                  </td>
+                </tr>
+                {% endif %}
+                {% if resume %}
+                <tr>
+                  <td valign="top" style="padding:0 0 10px 0;">
+                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#a8a3b8;margin-bottom:4px;">Resume</div>
+                    <a href="{{ resume }}" style="color:#6366f1;font-size:12px;text-decoration:none;border-bottom:1px dashed rgba(99,102,241,0.3);">Vineet_Paun_Resume.pdf</a>
+                  </td>
+                </tr>
+                {% endif %}
+                {% if x %}
+                <tr>
+                  <td valign="top" style="padding:0;">
+                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#a8a3b8;margin-bottom:4px;">X</div>
+                    <a href="{{ x }}" style="color:#6366f1;font-size:12px;text-decoration:none;border-bottom:1px dashed rgba(99,102,241,0.3);">{{ x }}</a>
+                  </td>
+                </tr>
+                {% endif %}
+              </table>
+            </td>
+          </tr>
+          {% endif %}
+
+          <!-- Sign-off -->
+          <tr>
+            <td style="padding:4px 36px 34px 36px;font-size:15px;line-height:1.7;color:#5c5775;">
+              Thanks for your time,<br />
+              <strong style="color:#1a1830;font-family:Georgia,'Times New Roman',serif;font-size:17px;">{{ sender_name or "Your Name" }}</strong>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

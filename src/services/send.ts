@@ -5,11 +5,13 @@ import chalk from "chalk";
 import { appendContacted, loadContactedEmails, loadContacts, type Contact, writeContacts } from "../contacts.js";
 import { loadLinks } from "../links.js";
 import { defaultSendLogPath, getVersion } from "../config/project.js";
+import { getPlatformTemplateData } from "../data/platform-template-data.js";
 import { SendLogRow, SendRunConfig, SendStatus } from "../types.js";
 import { printRule } from "./console.js";
 import { appendSendLog, buildCampaignKey, createRunId, loadSentEmailsForCampaign } from "./send-log.js";
 import { getSmtpConfig, isAuthError, smtpTransport } from "./smtp.js";
 import { templateEnv } from "./template.js";
+import { htmlToPlainText } from "./html.js";
 
 function createLogRow(
   runId: string,
@@ -136,6 +138,7 @@ export async function runSend(config: SendRunConfig): Promise<void> {
 
   const env = templateEnv(path.dirname(templatePath));
   const templateName = path.basename(templatePath);
+  const isHtmlTemplate = templateName.toLowerCase().endsWith(".html") || templateName.toLowerCase().endsWith(".htm");
 
   try {
     env.getTemplate(templateName, true);
@@ -148,6 +151,13 @@ export async function runSend(config: SendRunConfig): Promise<void> {
   const links = loadLinks(path.dirname(contactsPath));
   const dryRun = config.dryRun;
   const fromName = config.fromName?.trim();
+  const roleTemplateData = getPlatformTemplateData(config.role);
+  const ctaHref =
+    String(links[roleTemplateData.ctaLinkKey] ?? "").trim() ||
+    String(links.portfolio ?? "").trim() ||
+    String(links.github ?? "").trim() ||
+    String(links.linkedin ?? "").trim() ||
+    String(links.resume ?? "").trim();
 
   let cfg: ReturnType<typeof getSmtpConfig> | null = null;
   let transport: ReturnType<typeof smtpTransport> | null = null;
@@ -180,7 +190,12 @@ export async function runSend(config: SendRunConfig): Promise<void> {
     const contact = rows[i];
     const ctx = {
       ...links,
-      ...contact
+      ...contact,
+      sender_name: fromName || links.sender_name,
+      role_template: {
+        ...roleTemplateData,
+        ctaHref
+      }
     };
 
     let rendered = "";
@@ -204,10 +219,13 @@ export async function runSend(config: SendRunConfig): Promise<void> {
       continue;
     }
 
+    const textBody = isHtmlTemplate ? htmlToPlainText(rendered) : rendered;
+    const htmlBody = isHtmlTemplate ? rendered : undefined;
+
     if (dryRun) {
-      const title = `To: ${toAddr} | Subject: ${fixedSubject}`;
+      const title = `To: ${toAddr} | Subject: ${fixedSubject}${isHtmlTemplate ? " | HTML" : ""}`;
       console.log(
-        boxen(rendered, {
+        boxen(textBody, {
           title,
           padding: 1,
           borderStyle: "round",
@@ -231,7 +249,8 @@ export async function runSend(config: SendRunConfig): Promise<void> {
         from: fromAddr,
         to: toAddr,
         subject: fixedSubject,
-        text: rendered,
+        text: textBody,
+        html: htmlBody,
         envelope: {
           from: activeCfg.address,
           to: [toAddr]

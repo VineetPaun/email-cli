@@ -4,6 +4,7 @@ import chalk from "chalk";
 import { Command } from "commander";
 import { loadContacts } from "../contacts.js";
 import { defaultContactsPath, normalizeRole, resolvePath, resolveTemplatePath, PROJECT_ROOT } from "../config/project.js";
+import { getPlatformTemplateData } from "../data/platform-template-data.js";
 import { getSmtpConfig, isAuthError, smtpTransport } from "../services/smtp.js";
 import { templateEnv } from "../services/template.js";
 
@@ -36,6 +37,8 @@ export function registerValidateCommand(program: Command): void {
           errors.push(`Template not found: ${template}`);
         } else {
           try {
+            const role = normalizeRole(opts.role ? String(opts.role) : undefined);
+            const roleTemplateData = getPlatformTemplateData(role);
             const env = templateEnv(path.dirname(template));
             const tpl = env.getTemplate(path.basename(template), true);
             tpl.render({
@@ -47,7 +50,11 @@ export function registerValidateCommand(program: Command): void {
               github: "",
               portfolio: "",
               resume: "",
-              sender_name: "Test"
+              sender_name: "Test",
+              role_template: {
+                ...roleTemplateData,
+                ctaHref: "https://example.com/work"
+              }
             });
             ok.push(`Template OK: ${template}`);
           } catch (err) {

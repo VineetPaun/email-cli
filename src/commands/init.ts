@@ -2,13 +2,13 @@ import fs from "node:fs";
 import path from "node:path";
 import chalk from "chalk";
 import { Command } from "commander";
-import { PROJECT_ROOT, ROLE_TEMPLATE_FILES, resolvePath } from "../config/project.js";
+import { PROJECT_ROOT, resolvePath } from "../config/project.js";
 
 export function registerInitCommand(program: Command): void {
   program
     .command("init")
     .option("--dir <target>", "Directory to init (default: current).", ".")
-    .description("Create .env.example, contacts.csv, links.json, and templates/ in the target directory.")
+    .description("Create .env.example, contacts.csv, links.json, and default templates (templates/normal.html) in the target directory.")
     .action((opts) => {
       const dst = resolvePath(String(opts.dir));
       fs.mkdirSync(dst, { recursive: true });
@@ -34,7 +34,12 @@ export function registerInitCommand(program: Command): void {
       const dstTemplatesDir = path.join(dst, "templates");
       fs.mkdirSync(dstTemplatesDir, { recursive: true });
 
-      for (const file of Object.values(ROLE_TEMPLATE_FILES)) {
+      const templateFiles = fs
+        .readdirSync(srcTemplatesDir, { withFileTypes: true })
+        .filter((entry) => entry.isFile())
+        .map((entry) => entry.name);
+
+      for (const file of templateFiles) {
         const source = path.join(srcTemplatesDir, file);
         const target = path.join(dstTemplatesDir, file);
 

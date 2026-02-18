@@ -4,10 +4,12 @@ import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
 import { TemplateRole } from "../types.js";
 
+const DEFAULT_TEMPLATE_FILE = "normal.html";
+
 export const ROLE_TEMPLATE_FILES: Record<TemplateRole, string> = {
-  fe: "frontend.txt",
-  be: "backend.txt",
-  fullstack: "fullstack.txt"
+  fe: DEFAULT_TEMPLATE_FILE,
+  be: DEFAULT_TEMPLATE_FILE,
+  fullstack: DEFAULT_TEMPLATE_FILE
 };
 
 export const ROLE_SUBJECT_DEFAULTS: Record<TemplateRole, string> = {
