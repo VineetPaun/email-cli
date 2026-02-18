@@ -8,7 +8,7 @@ import { defaultSendLogPath, getVersion } from "../config/project.js";
 import { SendLogRow, SendRunConfig, SendStatus } from "../types.js";
 import { printRule } from "./console.js";
 import { appendSendLog, buildCampaignKey, createRunId, loadSentEmailsForCampaign } from "./send-log.js";
-import { isAuthError, getSmtpConfig, smtpTransport } from "./smtp.js";
+import { getSmtpConfig, isAuthError, smtpTransport } from "./smtp.js";
 import { templateEnv } from "./template.js";
 
 function createLogRow(
@@ -150,24 +150,23 @@ export async function runSend(config: SendRunConfig): Promise<void> {
   const fromName = config.fromName?.trim();
 
   let cfg: ReturnType<typeof getSmtpConfig> | null = null;
+  let transport: ReturnType<typeof smtpTransport> | null = null;
   let fromAddr = "";
 
   if (!dryRun) {
     cfg = getSmtpConfig();
     fromAddr = fromName ? `${fromName} <${cfg.address}>` : cfg.address;
+    transport = smtpTransport(cfg);
 
     try {
-      await smtpTransport(cfg).verify();
+      await transport.verify();
       console.log(chalk.green("[ok] SMTP connected"));
     } catch (err) {
       if (isAuthError(err)) {
-        throw new Error(
-          "SMTP auth failed. Check EMAIL_ADDRESS and EMAIL_PASSWORD (use Gmail App Password if 2FA)."
-        );
+        throw new Error("SMTP auth failed. Check EMAIL_ADDRESS and EMAIL_PASSWORD (use Gmail App Password if 2FA).");
       }
       throw new Error(`SMTP error: ${(err as Error).message}`);
     }
-
   } else {
     printRule("DRY RUN");
     console.log(chalk.yellow("[info] Dry run mode - no emails sent"));
@@ -226,9 +225,9 @@ export async function runSend(config: SendRunConfig): Promise<void> {
 
     try {
       const activeCfg = cfg as ReturnType<typeof getSmtpConfig>;
+      const activeTransport = transport as ReturnType<typeof smtpTransport>;
       const started = Date.now();
-      const perSendTransport = smtpTransport(activeCfg);
-      await perSendTransport.sendMail({
+      await activeTransport.sendMail({
         from: fromAddr,
         to: toAddr,
         subject: fixedSubject,
@@ -254,13 +253,10 @@ export async function runSend(config: SendRunConfig): Promise<void> {
       );
 
       if (isAuthError(err)) {
-        throw new Error(
-          "SMTP auth failed. Check EMAIL_ADDRESS and EMAIL_PASSWORD (use Gmail App Password if 2FA)."
-        );
+        throw new Error("SMTP auth failed. Check EMAIL_ADDRESS and EMAIL_PASSWORD (use Gmail App Password if 2FA).");
       }
       throw new Error(`[${i + 1}/${total}] Failed to send to ${toAddr}: ${errMsg}`);
     }
-
   }
 
   if (!dryRun && sent.length > 0 && config.mutate) {

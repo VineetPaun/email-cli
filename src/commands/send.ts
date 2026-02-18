@@ -1,5 +1,13 @@
 import { Command } from "commander";
-import { defaultContactsPath, defaultSendLogPath, defaultSubject, normalizeRole, resolvePath, resolveTemplatePath } from "../config/project.js";
+import {
+  defaultContactsPath,
+  defaultSendLogPath,
+  defaultSubject,
+  inferRoleFromTemplatePath,
+  normalizeRole,
+  resolvePath,
+  resolveTemplatePath
+} from "../config/project.js";
 import { runSend } from "../services/send.js";
 import { envBoolean, parseInteger } from "../utils/primitives.js";
 
@@ -9,7 +17,7 @@ export function registerSendCommands(program: Command): void {
     .option("--template <path>", "Path to email template (optional if using --role).")
     .option("--role <role>", "Template role: fe | be | fullstack.")
     .option("--contacts <path>", "Path to CSV contacts file.", defaultContactsPath())
-    .option("--subject <subject>", "Same subject for every email.", defaultSubject())
+    .option("--subject <subject>", "Same subject for every email (overrides role default).")
     .option("--from-name <name>", "Display name for sender (default: EMAIL_ADDRESS).")
     .option("--limit <count>", "Max contacts to send to (0 = all).", "0")
     .option("--skip-contacted", "Skip emails already in contacted.csv.")
@@ -19,11 +27,18 @@ export function registerSendCommands(program: Command): void {
     .option("--log-file <path>", "Path to send log CSV.")
     .action(async (opts) => {
       const contactsPath = resolvePath(String(opts.contacts ?? defaultContactsPath()));
+      const explicitRole = opts.role ? normalizeRole(String(opts.role)) : undefined;
+      const templatePath = resolveTemplatePath(
+        explicitRole,
+        opts.template ? String(opts.template) : undefined
+      );
+      const inferredRole = explicitRole ?? inferRoleFromTemplatePath(templatePath);
+      const roleForSend = inferredRole ?? normalizeRole(undefined);
       await runSend({
-        templatePath: resolveTemplatePath(opts.role ? String(opts.role) : undefined, opts.template ? String(opts.template) : undefined),
-        role: opts.role ? normalizeRole(String(opts.role)) : undefined,
+        templatePath,
+        role: roleForSend,
         contactsPath,
-        subject: String(opts.subject ?? defaultSubject()),
+        subject: String(opts.subject ?? defaultSubject(roleForSend)),
         fromName: opts.fromName ? String(opts.fromName) : undefined,
         limit: parseInteger(String(opts.limit ?? "0"), 0),
         skipContacted: Boolean(opts.skipContacted),
@@ -39,7 +54,7 @@ export function registerSendCommands(program: Command): void {
     .description("Send using project defaults. This is what `bun dev` runs.")
     .option("--role <role>", "Template role: fe | be | fullstack (default from POSTCLI_ROLE or fullstack).")
     .option("--contacts <path>", "Path to CSV contacts file.", process.env.CONTACTS_FILE ?? defaultContactsPath())
-    .option("--subject <subject>", "Same subject for every email.", defaultSubject())
+    .option("--subject <subject>", "Same subject for every email (overrides role default).")
     .option("--from-name <name>", "Display name for sender (default: FROM_NAME or EMAIL_ADDRESS).")
     .option("--limit <count>", "Max contacts to send to (0 = all).", process.env.SEND_LIMIT ?? "0")
     .option("--dry-run", "Preview emails without sending.")
@@ -54,7 +69,7 @@ export function registerSendCommands(program: Command): void {
         templatePath: resolveTemplatePath(role),
         role,
         contactsPath,
-        subject: String(opts.subject ?? defaultSubject()),
+        subject: String(opts.subject ?? defaultSubject(role)),
         fromName: opts.fromName ? String(opts.fromName) : process.env.FROM_NAME,
         limit: parseInteger(String(opts.limit ?? process.env.SEND_LIMIT ?? "0"), 0),
         skipContacted: opts.skipContacted ?? envBoolean("SKIP_CONTACTED", true),

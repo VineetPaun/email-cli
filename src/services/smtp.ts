@@ -1,6 +1,12 @@
 import nodemailer from "nodemailer";
-import { SmtpConfig } from "../types.js";
 import { parseInteger } from "../utils/primitives.js";
+
+export type SmtpConfig = {
+  address: string;
+  password: string;
+  server: string;
+  port: number;
+};
 
 export function getSmtpConfig(): SmtpConfig {
   const required = ["EMAIL_ADDRESS", "EMAIL_PASSWORD", "SMTP_SERVER", "SMTP_PORT"] as const;

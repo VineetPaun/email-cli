@@ -1,16 +1,27 @@
 Hi {{ name }},
 
-I am reaching out because I am interested in full-stack opportunities at {{ company }}.
+I’m reaching out regarding full stack engineering roles at {{ company }}.
 
-I ship end-to-end features across frontend and backend: product UI, APIs, data flows, and deployment workflows.
+I work across frontend and backend systems with a backend-first engineering mindset. My stack includes Next.js, TypeScript, Node.js, and MongoDB/PostgreSQL.
 
-If useful, I can share projects where I owned full feature delivery from idea to production.
+I’ve built:
+- End-to-end features from schema design to production UI
+- SEO-optimized SSR applications
+- Secure authentication and authorization systems
+- Tool-integrated AI systems with multi-agent coordination
+- Backend services designed with observability and scale in mind
+
+I enjoy owning features holistically — ensuring architectural clarity, performance efficiency, and long-term maintainability.
+
+If relevant, I’d be glad to share specific implementations.
+
+Thank you for your time.
 
 {% if portfolio %}Portfolio: {{ portfolio }}
 {% endif %}{% if github %}GitHub: {{ github }}
 {% endif %}{% if linkedin %}LinkedIn: {{ linkedin }}
 {% endif %}{% if resume %}Resume: {{ resume }}
 {% endif %}
-Thanks for your time.
 
-{{ sender_name | default('[Your name]') }}
+Sincerely,  
+{{ sender_name | default('Vineet Paun') }}

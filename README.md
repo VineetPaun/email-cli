@@ -10,9 +10,13 @@ Single-project email CLI. Everything lives inside this folder.
   - `templates/frontend.txt`
   - `templates/backend.txt`
   - `templates/fullstack.txt`
-- Subject is fixed for the whole run via `EMAIL_SUBJECT`.
+- Different default subject per template role:
+  - `fe`: `Frontend Engineer - React / Next.js`
+  - `be`: `Backend Engineer - APIs & Scalable Systems`
+  - `fullstack`: `Full Stack Engineer - TypeScript / Node.js`
 - `sent_log.csv` is written for delivery tracking.
 - Resume-on-failure is enabled by default (already sent rows in the same campaign are skipped).
+- Sending uses SMTP.
 
 ## Setup (once)
 
@@ -22,7 +26,7 @@ bun install
 cp .env.example .env
 ```
 
-Edit these files in this same folder:
+Edit these files in this folder:
 
 - `.env`
 - `contacts.csv`
@@ -32,13 +36,16 @@ Edit these files in this same folder:
 In `.env`, set:
 
 - `EMAIL_ADDRESS`
-- `EMAIL_PASSWORD` (Gmail App Password)
+- `EMAIL_PASSWORD` (for Gmail, use App Password)
 - `SMTP_SERVER`
 - `SMTP_PORT`
-- `EMAIL_SUBJECT` (single subject for all emails)
 - `POSTCLI_ROLE=fe|be|fullstack`
+
+Optional:
+
+- `EMAIL_SUBJECT_FE` / `EMAIL_SUBJECT_BE` / `EMAIL_SUBJECT_FS`
 - `RESUME_ON_FAILURE=true|false`
-- `SEND_LOG_FILE=sent_log.csv` (optional)
+- `SEND_LOG_FILE=sent_log.csv`
 
 ## Send emails
 
@@ -56,12 +63,4 @@ bun run dry
 bun run src/cli.ts send-default --role fe --dry-run
 bun run src/cli.ts import data.json -o contacts.csv
 bun run src/cli.ts send-default --no-resume
-```
-
-## Optional cleanup
-
-If you no longer want the old folder, remove it manually:
-
-```bash
-rm -r /Users/ztlab67/Documents/Personal_Projects/postcli/my-campaign
 ```

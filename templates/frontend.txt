@@ -1,15 +1,25 @@
 Hi {{ name }},
 
-I am reaching out because I am interested in frontend opportunities at {{ company }}.
+I’m reaching out regarding frontend engineering opportunities at {{ company }}.
 
-I focus on building fast, polished interfaces with React/Next.js, clean component architecture, and strong UX details.
+I build high-performance, production-grade interfaces using React, Next.js, and TypeScript, with strong emphasis on rendering performance, accessibility, and architectural consistency.
 
-If helpful, I can share recent frontend work and walk through how I approach performance, accessibility, and product quality.
+My recent work includes:
+- Server-side rendering and SEO optimization in Next.js
+- Component abstraction with strict typing and design constraints
+- State normalization and predictable data flows
+- Real-time UI systems integrated with backend services
+- Bundle size optimization and performance profiling
+
+I focus on building frontend systems that scale across teams, not just features.
+
+If relevant, I’d be glad to share projects demonstrating performance improvements and architectural decisions.
 
 {% if portfolio %}Portfolio: {{ portfolio }}
 {% endif %}{% if github %}GitHub: {{ github }}
 {% endif %}{% if linkedin %}LinkedIn: {{ linkedin }}
+{% endif %}{% if resume %}Resume: {{ resume }}
 {% endif %}
-Thanks for your time.
 
-{{ sender_name | default('[Your name]') }}
+Best,  
+{{ sender_name | default('Vineet Paun') }}

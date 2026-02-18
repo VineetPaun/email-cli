@@ -10,6 +10,12 @@ export const ROLE_TEMPLATE_FILES: Record<TemplateRole, string> = {
   fullstack: "fullstack.txt"
 };
 
+export const ROLE_SUBJECT_DEFAULTS: Record<TemplateRole, string> = {
+  fe: "Frontend Engineer - React / Next.js",
+  be: "Backend Engineer - APIs & Scalable Systems",
+  fullstack: "Full Stack Engineer - TypeScript / Node.js"
+};
+
 export function resolveProjectRoot(): string {
   const scriptDir = path.dirname(fileURLToPath(import.meta.url));
   const candidates = [
@@ -99,9 +105,37 @@ export function defaultContactsPath(): string {
   return path.join(PROJECT_ROOT, "contacts.csv");
 }
 
-export function defaultSubject(): string {
-  const subject = String(process.env.EMAIL_SUBJECT ?? "Quick question about your team").trim();
-  return subject || "Quick question about your team";
+export function inferRoleFromTemplatePath(templatePath?: string): TemplateRole | undefined {
+  if (!templatePath) {
+    return undefined;
+  }
+
+  const base = path.basename(templatePath).toLowerCase();
+  if (base.includes("front")) {
+    return "fe";
+  }
+  if (base.includes("back")) {
+    return "be";
+  }
+  if (base.includes("full")) {
+    return "fullstack";
+  }
+
+  return undefined;
+}
+
+export function defaultSubject(roleInput?: string | TemplateRole): string {
+  const role = normalizeRole(roleInput);
+  if (role === "fe") {
+    return String(process.env.EMAIL_SUBJECT_FE ?? ROLE_SUBJECT_DEFAULTS.fe).trim() || ROLE_SUBJECT_DEFAULTS.fe;
+  }
+  if (role === "be") {
+    return String(process.env.EMAIL_SUBJECT_BE ?? ROLE_SUBJECT_DEFAULTS.be).trim() || ROLE_SUBJECT_DEFAULTS.be;
+  }
+  return (
+    String(process.env.EMAIL_SUBJECT_FS ?? process.env.EMAIL_SUBJECT_FULLSTACK ?? ROLE_SUBJECT_DEFAULTS.fullstack).trim() ||
+    ROLE_SUBJECT_DEFAULTS.fullstack
+  );
 }
 
 export function defaultSendLogPath(contactsPath: string): string {

@@ -1,15 +1,28 @@
 Hi {{ name }},
 
-I am reaching out because I am interested in backend opportunities at {{ company }}.
+I’m writing to express interest in backend engineering roles at {{ company }}.
 
-I work on APIs, distributed systems, data modeling, and production reliability with a focus on maintainability and scale.
+I design backend systems with focus on correctness, scalability, and operational reliability.
 
-If useful, I can share examples of backend systems I built and how I handle performance, observability, and safe deployments.
+My experience includes:
+- Designing RESTful and event-driven services in Node.js
+- Data modeling for high-read and write-heavy workloads (MongoDB / PostgreSQL)
+- Authentication systems (JWT, RBAC)
+- Background workers and queue-based processing
+- Observability practices (structured logging, metrics-first thinking)
+- Building AI-powered multi-agent CLI systems with tool orchestration
 
-{% if github %}GitHub: {{ github }}
+I’m particularly interested in distributed systems, infrastructure-level challenges, and backend systems where reliability and performance are critical.
+
+If useful, I’d be happy to share architecture breakdowns of systems I’ve built.
+
+Thank you for your consideration.
+
+{% if portfolio %}Portfolio: {{ portfolio }}
+{% endif %}{% if github %}GitHub: {{ github }}
 {% endif %}{% if linkedin %}LinkedIn: {{ linkedin }}
 {% endif %}{% if resume %}Resume: {{ resume }}
 {% endif %}
-Thanks for your time.
 
-{{ sender_name | default('[Your name]') }}
+Regards,  
+{{ sender_name | default('Vineet Paun') }}
